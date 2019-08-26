@@ -1,4 +1,5 @@
 # ml_sample_project
+機械学習で画像認識するサンプルプロジェクト
 ## install
 ```
 pip install icrawler, flask, keras, opencv-python, Pillow
