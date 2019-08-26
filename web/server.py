@@ -13,15 +13,15 @@ from keras.preprocessing import image
 import numpy as np
 
 #保存したモデルの読み込み
-model = model_from_json(open('./data/ramen_predict.json').read())
+model = model_from_json(open('../data/ramen_predict.json').read())
 #保存した重みの読み込み
-model.load_weights('./data/ramen_predict.hdf5')
+model.load_weights('../data/ramen_predict.hdf5')
 graph = tf.get_default_graph()
 
 # ラーメンの分類
 categories = ["醤油ラーメン","味噌ラーメン","塩ラーメン","豚骨ラーメン","担々麺"]
 
-SAVE_DIR = "./images"
+SAVE_DIR = "images/"
 if not os.path.isdir(SAVE_DIR):
     os.mkdir(SAVE_DIR)
 
@@ -32,7 +32,9 @@ def random_str(n):
 
 @app.route('/')
 def index():
-    return render_template('index.html', images=os.listdir(SAVE_DIR)[::-1])
+    # 隠しファイルを除いたファイルリストを取得
+    file_list = [filename for filename in os.listdir(SAVE_DIR) if not filename.startswith('.')]
+    return render_template('index.html', images=file_list)
 
 @app.route('/images/<path:path>')
 def send_js(path):
@@ -82,10 +84,10 @@ def upload():
             ramen_type = "担々麺"
         else:
             ramen_type = "unknown"
-        os.rename(SAVE_DIR + "/" + dt_now + ".png", SAVE_DIR + "/" + dt_now + "_" + ramen_type + ".png")
+        os.rename(SAVE_DIR + dt_now + ".png", SAVE_DIR + "/" + dt_now + "_" + ramen_type + ".png")
 
         return redirect('/')
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=8888)
+    app.run(host='0.0.0.0', port=8080)
