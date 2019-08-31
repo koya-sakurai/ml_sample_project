@@ -2,7 +2,7 @@
 機械学習で画像認識するサンプルプロジェクト
 ## Install
 ```
-pip install icrawler flask keras opencv-python Pillow
+pip install icrawler flask tensorflow keras opencv-python Pillow
 ```
 ## How to use
 1. 学習・検証データとなる画像ファイルを収集する
