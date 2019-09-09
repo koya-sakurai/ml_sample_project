@@ -3,3 +3,4 @@ data/*
 web/images/*
 .ipynb_checkpoints/
 !.gitkeep
+.idea/*
